@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const  MyDocument = () => (
+const  MyDocument = ({data}) => (
   <Document>
     <Page  style={styles.page} >
       <View style={styles.body}>
@@ -48,7 +48,7 @@ const  MyDocument = () => (
       <View style={styles.header}>
         
         
-        <Image style={styles.cse} src="/static/CSE.png"/>
+        <Image style={styles.cse} src={data.color?"/static/CSE.png":"/static/CSE_mono.png"}/>
         
         
 
@@ -58,7 +58,7 @@ const  MyDocument = () => (
         
         </View>
         
-        <Image style={styles.vu} src="/static/VU.png"/>
+        <Image style={styles.vu} src={data.color?"/static/VU.png":"/static/VU_mono.png"}/>
         
         
         
@@ -66,7 +66,7 @@ const  MyDocument = () => (
       </View>
       
       <View style={{  marginVertical:"30px", textAlign:'center', flexDirection:'row', justifyContent:'center'  }}>
-      <Text style={{border:'2px solid black', borderRadius:'25px', padding:'10px'}}>Lab Report: #1</Text>
+      <Text style={{border:'2px solid black', borderRadius:'25px', padding:'10px'}}>Lab Report: #{data.report}</Text>
       </View>
 
       
@@ -75,12 +75,12 @@ const  MyDocument = () => (
         <View style={{flex:3}}>
       <View style={{paddingLeft:'15px'}}>
       <Text >Course Code: </Text>
-      <Text style={{fontFamily:'Times-Bold'}}>CSE 324</Text>
+      <Text style={{fontFamily:'Times-Bold'}}>{data.ccode}</Text>
       </View>
 
       <View style={{paddingLeft:'15px'}}>
       <Text style={{ marginTop:"10px"}}>Course Title: </Text>
-      <Text style={{fontFamily:'Times-Bold'}}>Lorem ipsum dolor sit amet consectetur adipisicing</Text>
+      <Text style={{fontFamily:'Times-Bold'}}>{data.ctitle}</Text>
       </View>
 
       </View>
@@ -91,11 +91,11 @@ const  MyDocument = () => (
 
       <View style={{}}>
       <Text>Issue Date: </Text>
-      <Text style={{fontFamily:'Times-Bold'}}>14 February, 2025</Text>
+      <Text style={{fontFamily:'Times-Bold'}}>{data.issue}</Text>
       </View>
       <View style={{ marginTop:"10px"}}>
       <Text>Submission Date: </Text>
-      <Text style={{fontFamily:'Times-Bold'}}>21 February, 2025</Text>
+      <Text style={{fontFamily:'Times-Bold'}}>{data.submit}</Text>
       </View>
 
       </View>
@@ -114,10 +114,10 @@ const  MyDocument = () => (
         <View  style={{flexDirection:'row'}}>
         <View style={{flex:1, borderRight:'2px', borderTop:'2px'}}>
           <Text style={{textAlign:'left', padding: '5px', paddingLeft:'15px'}}>
-          Name: {"\n"}Md. Rafiz Uddin{"\n"}ID: 222311079{"\n"}Year: 3rd{"\n"}Semester: 7th{"\n"}Section: B{"\n"}Batch: 30th</Text>
+          Name: {"\n"}{data.sname}{"\n"}ID: {data.sid}{"\n"}Year: {data.year}{"\n"}Semester: {data.semester}{"\n"}Section: {data.section}{"\n"}Batch: {data.batch}</Text>
         </View>
         <View style={{flex:1, borderTop:'2px'}}>
-        <Text style={{textAlign:'left', padding: '5px'}}>Mohammad Faisal Al-Naser{"\n"}-Lecturer,{"\n"}Md. Adnan Sami{"\n"}-Lecturer,{"\n"}Dept. of CSE, VU</Text>
+        <Text style={{textAlign:'left', padding: '5px'}}>{data.tname1}{"\n"}-{data.tdes1},{"\n"}{data.tname2}{"\n"}-{data.tdes2},{"\n"}Dept. of CSE, VU</Text>
         </View>
         </View>
 

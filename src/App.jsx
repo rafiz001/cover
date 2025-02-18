@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Routes, Route } from "react-router";
 import './App.css'
-import MyDocument from './pages/pdf/Document'
+import { ToastContainer } from 'react-toastify';
 
 import Nav from './pages/misc/Nav';
 import LabReport from './pages/labReport/Index';
@@ -11,10 +11,16 @@ function App() {
   
   return (
     <>
+    
+   
+    <ToastContainer  theme="light"/>
+    
+    
+    {/*  */}
     <Nav/>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/labreport" element={<LabReport />} />
+      <Route path="/labreport?/:data" element={<LabReport />} />
       <Route path="*" element={<>sorry</>} />
     </Routes>
 
