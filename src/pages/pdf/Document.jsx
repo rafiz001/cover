@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const  MyDocument = ({data}) => (
+const  MyDocument = ({data,assignment}) => (
   <Document>
     <Page  style={styles.page} >
       <View style={styles.body}>
@@ -66,7 +66,7 @@ const  MyDocument = ({data}) => (
       </View>
       
       <View style={{  marginVertical:"30px", textAlign:'center', flexDirection:'row', justifyContent:'center'  }}>
-      <Text style={{border:'2px solid black', borderRadius:'25px', padding:'10px'}}>Lab Report: #{data.report}</Text>
+      <Text style={{border:'2px solid black', borderRadius:'25px', padding:'10px'}}>{assignment?"Assignment":"Lab Report"}: #{data.report}</Text>
       </View>
 
       

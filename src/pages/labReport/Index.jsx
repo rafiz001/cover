@@ -29,10 +29,11 @@ function Index(props) {
     tdes1: null,
     tname2: null,
     tdes2: null,
+    style: "classic",
     
   })
   const generatePdfBlob = async () => {
-    const blob = await pdf(<MyDocument data={data} />).toBlob();
+    const blob = await pdf(<MyDocument data={data} assignment={props.assignment}/>).toBlob();
     const url = URL.createObjectURL(blob);
     setPdfUrl(url);
     setIsLoading(false)
@@ -42,16 +43,24 @@ function Index(props) {
   setIsLoading(true)
    generatePdfBlob()
   }
-
+  function beforeWhat(str) {
+    return str.split("?")[0];
+  }
   function shareBtn(){
-
+    if(data.ccode!=null) {
     document.getElementById('shareModal').showModal();
     const searchParams = new URLSearchParams(data).toString();
-    setShareLink("http://"+window.location.host +"/"+ window.location.hash +"?"+ searchParams)
+    setShareLink("http://"+window.location.host +"/"+ beforeWhat(window.location.hash) +"?"+ searchParams)
+    }
+    else toast.error("Cource code is mandatory to share.")
   }
   useEffect(() => {
-    
-    setData(Object.fromEntries([...searchParams]))
+    let gotData = Object.fromEntries([...searchParams]);
+    Object.keys(gotData).forEach((v)=>{if(gotData[v]=="null")gotData={...gotData, [v]:null};})
+    if(gotData.color!=undefined)gotData.color=(gotData.color==="true")?true:false;
+      console.log(gotData);
+    if(gotData.ccode!=undefined)
+    setData(gotData)
       
   }, [])
 
@@ -70,8 +79,7 @@ function Index(props) {
 
 
 
-        
-        <InputField label={"Report No.:"} ph={"1"} name='report' data={data} setData={setData}/> 
+        <InputField label={props.assignment?"Assignment no.:":"Lab Report no.:"} ph={"1"} name='report' data={data} setData={setData}/> 
         <InputField label={"Course Code:"} ph={"CSE 334"} name='ccode' data={data} setData={setData}/> 
         <InputField label={"Course Title:"} ph={"Microprocessor and Assembly Language Lab"}  name='ctitle' data={data}  setData={setData}/> 
         <InputField label={"Issue:"} ph={"14 February, 2025"}  name='issue' data={data}  setData={setData}/> 
@@ -86,6 +94,13 @@ function Index(props) {
         <InputField label={"Designation:"} ph={"Lecturer"}  name='tdes1' data={data}  setData={setData}/> 
         <InputField label={"Teacher Name:"} ph={"Md. Adnan Sami"}  name='tname2' data={data}  setData={setData}/> 
         <InputField label={"Designation:"} ph={"Lecturer"}  name='tdes2' data={data}  setData={setData}/> 
+        
+        <select onChange={(e)=>{setData(({...data,style: e.target.value}));}} defaultValue="Pick a style" className="select">
+        <option selected={data.style=="classic"} value={"classic"}>Classic Style</option>
+        
+        
+        
+        </select>
         <div className='flex justify-between gap-2'>
 
         <button className="btn btn-outline btn-success" onClick={()=>shareBtn()}>Share</button>
