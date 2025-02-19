@@ -48,7 +48,7 @@ const  MyDocument = ({data,assignment}) => (
       <View style={styles.header}>
         
         
-        <Image style={styles.cse} src={data.color?"/static/CSE.png":"/static/CSE_mono.png"}/>
+        <Image style={styles.cse} src={data.color?"/cover/static/CSE.png":"/cover/static/CSE_mono.png"}/>
         
         
 
@@ -58,7 +58,7 @@ const  MyDocument = ({data,assignment}) => (
         
         </View>
         
-        <Image style={styles.vu} src={data.color?"/static/VU.png":"/static/VU_mono.png"}/>
+        <Image style={styles.vu} src={data.color?"/cover/static/VU.png":"/cover/static/VU_mono.png"}/>
         
         
         
