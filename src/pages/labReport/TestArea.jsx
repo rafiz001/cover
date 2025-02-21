@@ -14,10 +14,10 @@ function TestArea(props) {
   
 
   const [data, setData] = useState({
-    color:true,
-    report: "wert",
-    ccode: "netull",
-    ctitle: "nuewll",
+    color:false,
+    report: "3",
+    ccode: "CSE 334",
+    ctitle: "Microprocessor and Assembly Language Lab",
     issue: "nulerwtl",
     submit: "null",
     sname: "null",

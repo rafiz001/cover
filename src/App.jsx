@@ -23,7 +23,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/labreport" element={<LabReport assignment={false}/>} />
       <Route path="/assignment" element={<LabReport  assignment={true}/>} />
-      <Route path="/test" element={<TestArea  assignment={true}/>} />
+      <Route path="/test" element={<TestArea  assignment={false}/>} />
       <Route path="*" element={<>sorry</>} />
     </Routes>
 
