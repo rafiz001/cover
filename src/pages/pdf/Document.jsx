@@ -69,19 +69,20 @@ const  MyDocument = ({data,assignment}) => (
       <Text style={{border:'2px solid black', borderRadius:'25px', padding:'10px'}}>{assignment?"Assignment":"Lab Report"}: #{data.report}</Text>
       </View>
 
-      
+      {data.willIssue? <>
       <View  style={{flexDirection:'row', justifyContent:'center', marginHorizontal:"5px",marginVertical:'50px', padding:"2px", border:"2px solid black", borderRadius:"5px"}}>
         
         <View style={{flex:3}}>
+      <View style={{paddingLeft:'15px'}}>
+      <Text style={{ marginTop:"10px"}}>Course Title: </Text>
+      <Text style={{fontFamily:'Times-Bold'}}>{data.ctitle}</Text>
+      </View>
+
       <View style={{paddingLeft:'15px'}}>
       <Text >Course Code: </Text>
       <Text style={{fontFamily:'Times-Bold'}}>{data.ccode}</Text>
       </View>
 
-      <View style={{paddingLeft:'15px'}}>
-      <Text style={{ marginTop:"10px"}}>Course Title: </Text>
-      <Text style={{fontFamily:'Times-Bold'}}>{data.ctitle}</Text>
-      </View>
 
       </View>
 
@@ -99,8 +100,37 @@ const  MyDocument = ({data,assignment}) => (
       </View>
 
       </View>
+
+
+      </View>
+      </>:<>
+      <View  style={{flexDirection:'column', gap:"7px", marginHorizontal:"5px",marginVertical:'50px', padding:"2px", border:"2px solid black", borderRadius:"5px"}}>
+        
+      <View style={{display: "flex" ,flexDirection:"row",paddingLeft:'15px'}}>
+      <Text style={{}}>Course Title: </Text>
+      <Text style={{fontFamily:'Times-Bold'}}>{data.ctitle}</Text>
+      </View>
+        
+      <View style={{display: "flex" ,flexDirection:"row",paddingLeft:'15px'}}>
+      <Text style={{}}>Course Code: </Text>
+      <Text style={{fontFamily:'Times-Bold'}}>{data.ccode}</Text>
+      </View>
+      <View style={{display: "flex" ,flexDirection:"row",paddingLeft:'15px'}}>
+      <Text style={{}}>Submission Date: </Text>
+      <Text style={{fontFamily:'Times-Bold'}}>{data.submit}</Text>
       </View>
 
+      
+
+      </View>
+
+      
+
+     
+
+
+      
+      </>}
         <View style={{  margin: '10px',marginTop:'70px', border:'2px solid black'}}>
         <View  style={{flexDirection:'row',}}>
         <View style={{flex:1, borderRight: '2px'}}>
@@ -117,7 +147,7 @@ const  MyDocument = ({data,assignment}) => (
           Name: {"\n"}{data.sname}{"\n"}ID: {data.sid}{"\n"}Year: {data.year}{"\n"}Semester: {data.semester}{"\n"}Section: {data.section}{"\n"}Batch: {data.batch}</Text>
         </View>
         <View style={{flex:1, borderTop:'2px'}}>
-        <Text style={{textAlign:'left', padding: '5px'}}>{data.tname1}{"\n"}-{data.tdes1},{"\n"}{data.tname2}{"\n"}-{data.tdes2},{"\n"}Dept. of CSE, VU</Text>
+        <Text style={{textAlign:'left', padding: '5px'}}>{data.tname1}{"\n"}{data.tdes1?"-"+data.tdes1+",":""}{"\n"}{data.tname2}{"\n"}{data.tdes2?"-"+data.tdes2+",":""}{"\n"}Dept. of CSE, VU</Text>
         </View>
         </View>
 

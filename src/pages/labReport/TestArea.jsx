@@ -18,24 +18,25 @@ function TestArea(props) {
     report: "3",
     ccode: "CSE 334",
     ctitle: "Microprocessor and Assembly Language Lab",
-    issue: "nulerwtl",
-    submit: "null",
-    sname: "null",
-    sid: "null",
-    year: "null",
-    semester: "null",
-    section: "null",
+    willIssue:false,
+    issue: "13 February, 2025",
+    submit: "18 February, 2025",
+    sname: "MD. ROBIUL HASAN MURSHED ROMIM",//Md. Rafiz Uddin
+    sid: "222311079",
+    year: "3rd",
+    semester: "7th",
+    section: "B",
     batch: "null",
-    tname1: "null",
-    tdes1: "null",
-    tname2: "null",
-    tdes2: "null",
+    tname1: "Mohammad Faisal Al-Naser",
+    tdes1: "Lecturer",
+    tname2: "Md. Adnan Sami",
+    tdes2: "Lecturer",
     style: "classic",
     
   })
   const generatePdfBlob = async () => {
-    const blob = await pdf(<Design2 data={data} assignment={props.assignment}/>).toBlob();
-    const url = URL.createObjectURL(blob);
+    const blob = await pdf(<MyDocument data={data} assignment={props.assignment}/>).toBlob();
+    const url = URL.createObjectURL(blob);//MyDocument Design2
     setPdfUrl(url);
     setIsLoading(false)
 
@@ -48,7 +49,7 @@ function TestArea(props) {
     return str.split("?")[0];
   }
   function shareBtn(){
-    if(data.ccode!=null) {
+    if(data.ccode!=null || data.ccode!="") {
     document.getElementById('shareModal').showModal();
     const searchParams = new URLSearchParams(data).toString();
     setShareLink("http://"+window.location.host +"/cover/"+ beforeWhat(window.location.hash) +"?"+ searchParams)

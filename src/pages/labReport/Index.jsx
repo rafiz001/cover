@@ -4,6 +4,7 @@ import MyDocument from '../pdf/Document';
 import InputField from '../misc/InputField';
 import {  useSearchParams } from 'react-router';
 import { toast } from 'react-toastify';
+import Design2 from '../pdf/Design2';
 
 function Index(props) {
   const [pdfUrl, setPdfUrl] = useState(null);
@@ -17,6 +18,7 @@ function Index(props) {
     report: null,
     ccode: null,
     ctitle: null,
+    willIssue:true,
     issue: null,
     submit: null,
     sname: null,
@@ -33,7 +35,21 @@ function Index(props) {
     
   })
   const generatePdfBlob = async () => {
-    const blob = await pdf(<MyDocument data={data} assignment={props.assignment}/>).toBlob();
+    let blob ;
+    switch (data.style) {
+      case 'classic':
+        blob = await pdf(<MyDocument data={data} assignment={props.assignment}/>).toBlob();
+        break;
+    case 'layout2':
+      blob = await pdf(<Design2 data={data} assignment={props.assignment}/>).toBlob();
+        break;
+
+      default:
+        blob = await pdf(<MyDocument data={data} assignment={props.assignment}/>).toBlob();
+        break;
+    }
+
+    
     const url = URL.createObjectURL(blob);
     setPdfUrl(url);
     setIsLoading(false)
@@ -47,7 +63,7 @@ function Index(props) {
     return str.split("?")[0];
   }
   function shareBtn(){
-    if(data.ccode!=null) {
+    if(data.ccode!=null && data.ccode!="") {
     document.getElementById('shareModal').showModal();
     const searchParams = new URLSearchParams(data).toString();
     setShareLink("http://"+window.location.host +"/cover/"+ beforeWhat(window.location.hash) +"?"+ searchParams)
@@ -58,9 +74,10 @@ function Index(props) {
     let gotData = Object.fromEntries([...searchParams]);
     Object.keys(gotData).forEach((v)=>{if(gotData[v]=="null")gotData={...gotData, [v]:null};})
     if(gotData.color!=undefined)gotData.color=(gotData.color==="true")?true:false;
+    if(gotData.willIssue!=undefined)gotData.willIssue=(gotData.willIssue==="true")?true:false;
       console.log(gotData);
     if(gotData.ccode!=undefined)
-    setData(gotData)
+    setData({...data,...gotData})
       
   }, [])
 
@@ -77,12 +94,21 @@ function Index(props) {
           </label>
         </div>
 
+        <div>
+        <label htmlFor='willIssue'>Issue Date: </label>
+          <label className="toggle text-base-content">
+            <input id='willIssue' checked={data.willIssue} type="checkbox"  onChange={()=>{setData(({...data,willIssue: !(data.willIssue)}));}}/>
+
+            <svg aria-label="disabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+            <svg aria-label="enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="4" fill="none" stroke="currentColor"><path d="M20 6 9 17l-5-5"></path></g></svg>
+          </label>
+        </div>
 
 
         <InputField label={props.assignment?"Assignment no.:":"Lab Report no.:"} ph={"1"} name='report' data={data} setData={setData}/> 
         <InputField label={"Course Code:"} ph={"CSE 334"} name='ccode' data={data} setData={setData}/> 
         <InputField label={"Course Title:"} ph={"Microprocessor and Assembly Language Lab"}  name='ctitle' data={data}  setData={setData}/> 
-        <InputField label={"Issue:"} ph={"14 February, 2025"}  name='issue' data={data}  setData={setData}/> 
+        {data.willIssue && <InputField label={"Issue:"} ph={"14 February, 2025"}  name='issue' data={data}  setData={setData}/> }
         <InputField label={"Submission:"} ph={"21 February, 2025"}  name='submit' data={data}  setData={setData}/> 
         <InputField label={"Student Name:"} ph={"Md. Rafiz Uddin"}  name='sname' data={data}  setData={setData}/> 
         <InputField label={"Student ID:"} ph={"222311079"}  name='sid' data={data}  setData={setData}/> 
@@ -95,8 +121,9 @@ function Index(props) {
         <InputField label={"Teacher Name:"} ph={"Md. Adnan Sami"}  name='tname2' data={data}  setData={setData}/> 
         <InputField label={"Designation:"} ph={"Lecturer"}  name='tdes2' data={data}  setData={setData}/> 
         
-        <select onChange={(e)=>{setData(({...data,style: e.target.value}));}} defaultValue="Pick a style" className="select">
-        <option selected={data.style=="classic"} value={"classic"}>Classic Style</option>
+        <select onChange={(e)=>{setData(({...data,style: e.target.value}));}} defaultValue="Pick a Layout" className="select">
+        <option selected={data.style=="classic"} value={"classic"}>Classic Layout</option>
+        <option selected={data.style=="layout2"} value={"layout2"}>Layout 2</option>
         
         
         
