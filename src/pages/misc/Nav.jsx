@@ -59,6 +59,7 @@ function Nav(props) {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/labreport">Lab Report</Link></li>
             <li><Link to="/assignment">Assignment</Link></li>
+            <li><Link to="/indexPage">Index Page</Link></li>
           </ul>
         </details>
       </li>

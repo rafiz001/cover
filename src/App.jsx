@@ -7,6 +7,7 @@ import Nav from './pages/misc/Nav';
 import LabReport from './pages/labReport/Index';
 import Home from './pages/home/Index';
 import TestArea from './pages/labReport/TestArea';
+import IndexPage from './pages/labReport/IndexPage';
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/labreport" element={<LabReport assignment={false}/>} />
       <Route path="/assignment" element={<LabReport  assignment={true}/>} />
+      <Route path="/indexPage" element={<IndexPage  assignment={true}/>} />
       <Route path="/test" element={<TestArea  assignment={false}/>} />
       <Route path="*" element={<>sorry</>} />
     </Routes>

@@ -12,6 +12,9 @@ function Index(props) {
             <Link className=' p-7 text-center bg-base-300' to="/assignment" >
            Assignment
            </Link>
+            <Link className=' p-7 text-center bg-base-300' to="/indexPage" >
+           Index Page
+           </Link>
         </div>
     );
 }
