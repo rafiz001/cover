@@ -40,12 +40,20 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   col: {
-    width: "100%",
+
     textAlign: "center",
-    padding: "10px",
-    border: "2px solid black",
-    
+
+
+
+  },
+  bBottom: {
+    borderBottom: "2px"
+  },
+  bRight: {
+    borderRight: "2px",
   }
+
+
 });
 
 // Create Document Component
@@ -62,6 +70,23 @@ const IndexPage = ({ data }) => {
     return out;
   }
   //debug={true}
+  const header = ["S\nl.", "Experiment Name", "Page", "Issue Date", "Submission Date", "Remark"]
+  const col = header.length, row = 7;
+  let range = n => [...Array(n).keys()];
+  const borderTable = (rk, ck) => {
+    if (ck == (col - 1) && rk == (row - 1)) return {}; //last row, last collum
+    else if (ck == (col - 1)) return styles.bBottom; //last collum
+    else if (rk == (row - 1)) return styles.bRight; //last row
+    else return { ...styles.bBottom, ...styles.bRight } //rest of the cells
+  }
+
+  const widther = (rk, ck) => {
+    if (ck == 0) return { width: "200px", } //sl
+    else if (ck == 1) return { width: "2000px" } //experiment name
+    else if (rk == 0) return { width: "100%" } //rest of the header cells
+    else return { width: "100%", padding: "10px", } //rest of the cells
+  }
+
   return (
     <Document>
       <Page style={styles.page} >
@@ -110,25 +135,18 @@ const IndexPage = ({ data }) => {
             <Text style={{ textDecoration: "underline", fontFamily: 'Times-Bold', fontSize: "25px" }}>Index</Text>
           </View>
 
-          <View style={{ border: "2px solid black", marginHorizontal: "5px", flexDirection: "column" }}>
+          <View style={{ border: "2px solid black", borderRadius: "5px", marginHorizontal: "5px", flexDirection: "column" }}>
+
             <View style={styles.row}>
-              <Text style={styles.col}>1</Text>
-              <Text style={styles.col}>2</Text>
-              <Text style={styles.col}>3</Text>
-              <Text style={styles.col}>4</Text>
+              {header.map((v, k) => <Text key={k} style={[borderTable(0, k), widther(0, k), styles.col]}>{v}</Text>)}
             </View>
-            <View style={styles.row}>
-              <Text style={styles.col}>1</Text>
-              <Text style={styles.col}>2</Text>
-              <Text style={styles.col}>3</Text>
-              <Text style={styles.col}>4</Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.col}>1</Text>
-              <Text style={styles.col}>2</Text>
-              <Text style={styles.col}>3</Text>
-              <Text style={styles.col}>4</Text>
-            </View>
+
+            {range(row).map((vr, kr) =>
+              <View key={kr} style={styles.row}>
+                {range(col).map((v, k) => <Text key={k} style={[borderTable(kr, k), widther(kr, k), styles.col]}>{"\n"}{"\n"}{"\n"}</Text>)}
+              </View>)}
+
+
 
 
           </View>
