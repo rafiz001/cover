@@ -7,7 +7,7 @@ function InputField(props) {
     return (
         <label className="input  focus-within:border-0">
         {props.label}
-        <input type="text" className=" " placeholder={props.ph} value={props.data[props.name]?props.data[props.name]:""} onChange={handleChange}/>
+        <input type={(props.type!=undefined && props.type=="number")?"number":"text"} className=" " placeholder={props.ph} value={props.data[props.name]?props.data[props.name]:""} onChange={handleChange}/>
 
       </label>
     );

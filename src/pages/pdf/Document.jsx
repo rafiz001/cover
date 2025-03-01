@@ -147,7 +147,7 @@ const MyDocument = ({ data, assignment }) => (
                 Name: {"\n"}{data.sname}{"\n"}ID: {data.sid}{"\n"}Year: {data.year}{"\n"}Semester: {data.semester}{"\n"}Section: {data.section}{"\n"}Batch: {data.batch}</Text>
             </View>
             <View style={{ flex: 1, borderTop: '2px' }}>
-              <Text style={{ textAlign: 'left', padding: '5px' }}>{data.tname1}{"\n"}{data.tdes1 ? "-" + data.tdes1 + "," : ""}{"\n"}{data.tname2}{"\n"}{data.tdes2 ? "-" + data.tdes2 + "," : ""}{"\n"}Dept. of CSE, VU</Text>
+              <Text style={{ textAlign: 'left', padding: '5px' }}>{data.tname1}{"\n"}{data.tdes1 ? "-" + data.tdes1 + "," : ""}{"\n"}{data.tname2}{"\n"}{data.tdes2 ? "-" + data.tdes2 + "," : ""}{"\n"}Dept. of {data.tdept}, VU</Text>
             </View>
           </View>
 

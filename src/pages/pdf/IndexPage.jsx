@@ -70,8 +70,15 @@ const IndexPage = ({ data }) => {
     return out;
   }
   //debug={true}
-  const header = ["S\nl.", "Experiment Name", "Page", "Issue Date", "Submission Date", "Remark"]
-  const col = header.length, row = 7;
+  // let header = ["S\nl.", "Experiment Name", "Page", "Issue Date", "Submission Date", "Remark"]
+  let header = ["S\nl.", "Experiment Name"]
+  if(data.page=="1")header.push("Page");
+  if(data.issue=="1")header.push("Issue Date");
+  if(data.submit=="1")header.push("Submission Date");
+  if(data.remark=="1")header.push("Remark");
+
+
+  const col = header.length, row = parseInt(data.row);
   let range = n => [...Array(n).keys()];
   const borderTable = (rk, ck) => {
     if (ck == (col - 1) && rk == (row - 1)) return {}; //last row, last collum
@@ -92,44 +99,48 @@ const IndexPage = ({ data }) => {
       <Page style={styles.page} >
         <View style={styles.body}>
 
-          <View style={{ width: "100%" }}>
+          {
+            data.identity == "1" &&
+            <View style={{ width: "100%" }}>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'center', marginHorizontal: "5px", marginVertical: '5px', padding: "2px", border: "2px solid black", borderRadius: "5px" }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'center', marginHorizontal: "5px", marginVertical: '5px', padding: "2px", border: "2px solid black", borderRadius: "5px" }}>
 
-              <View style={{ flex: 2 }}>
+                <View style={{ flex: 2 }}>
 
-                <View style={{ paddingLeft: '15px' }}>
-                  <Text>Name: </Text>
-                  <Text style={{ fontFamily: 'Times-Bold' }}>Md. Rafiz Uddin</Text>
+                  <View style={{ paddingLeft: '15px' }}>
+                    <Text>Name: </Text>
+                    <Text style={{ fontFamily: 'Times-Bold' }}>{data.name?data.name:" "}</Text>
+                  </View>
+                  <View style={{ paddingLeft: '15px' }}>
+                    <Text>ID: </Text>
+                    <Text style={{ fontFamily: 'Times-Bold' }}>{data.id?data.id:" "}</Text>
+                  </View>
+
                 </View>
-                <View style={{ paddingLeft: '15px' }}>
-                  <Text>ID: </Text>
-                  <Text style={{ fontFamily: 'Times-Bold' }}>222311079</Text>
+
+                <View style={{ flex: 3 }}>
+                  <View style={{}}>
+                    <Text style={{}}>Course Title: </Text>
+                    <Text style={{ fontFamily: 'Times-Bold', fontSize: "14px" }}>{data.ctitle?data.ctitle:" "}</Text>
+                  </View>
+
+                  <View style={{}}>
+                    <Text >Course Code: </Text>
+                    <Text style={{ fontFamily: 'Times-Bold' }}>{data.ccode?data.ccode:" "}</Text>
+                  </View>
+
+
                 </View>
+
+
+
+
+
 
               </View>
-
-              <View style={{ flex: 3 }}>
-                <View style={{}}>
-                  <Text style={{}}>Course Title: </Text>
-                  <Text style={{ fontFamily: 'Times-Bold', fontSize: "14px" }}>Operating System and System Programming Lab</Text>
-                </View>
-
-                <View style={{}}>
-                  <Text >Course Code: </Text>
-                  <Text style={{ fontFamily: 'Times-Bold' }}>CSE 332</Text>
-                </View>
-
-
-              </View>
-
-
-
-
-
-
             </View>
-          </View>
+
+          }
 
           <View style={{ flexDirection: "row", justifyContent: "center", width: "100%", marginVertical: "10px" }}>
             <Text style={{ textDecoration: "underline", fontFamily: 'Times-Bold', fontSize: "25px" }}>Index</Text>
@@ -138,7 +149,7 @@ const IndexPage = ({ data }) => {
           <View style={{ border: "2px solid black", borderRadius: "5px", marginHorizontal: "5px", flexDirection: "column" }}>
 
             <View style={styles.row}>
-              {header.map((v, k) => <Text key={k} style={[borderTable(0, k), widther(0, k), styles.col]}>{v}</Text>)}
+              {header.map((v, k) => <Text key={k} style={[borderTable(0, k), widther(0, k), styles.col, { fontSize: "15px" }]}>{v}</Text>)}
             </View>
 
             {range(row).map((vr, kr) =>

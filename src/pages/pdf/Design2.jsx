@@ -95,7 +95,7 @@ const Design2 = ({ data, assignment }) => {
             <Text style={{ fontFamily: 'Poppins', fontSize: "20px", color:"#474747" }}>{data.tdes1?"-"+data.tdes1:" "}</Text>
             <Text style={{ fontFamily: 'Poppins', fontSize: "20px" }}>{data.tname2}</Text>
             <Text style={{ fontFamily: 'Poppins', fontSize: "20px", color:"#474747" }}>{data.tdes2?"-"+data.tdes2:""}</Text>
-            <Text style={{ fontFamily: 'Poppins', fontSize: "20px" }}>Dept. of CSE, VU</Text>
+            <Text style={{ fontFamily: 'Poppins', fontSize: "20px" }}>Dept. of {data.tdept}, VU</Text>
           </View>
 
 

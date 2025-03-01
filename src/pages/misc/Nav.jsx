@@ -6,7 +6,8 @@ function Nav(props) {
         <>
            <div className="navbar bg-base-100 shadow-sm">
   <div className="flex-1">
-    <a className="btn btn-ghost text-xl" href='/'>Cover Page</a>
+    
+    <Link to="/" className="btn btn-ghost text-xl">Cover Page</Link>
   </div>
   <div className="flex-none">
   <div className="dropdown ">
@@ -49,21 +50,9 @@ function Nav(props) {
     
   </ul>
 </div>
-  
-    <ul className="menu menu-horizontal px-1">
-      {/* <li><a>Link</a></li> */}
-      <li>
-        <details>
-          <summary>Type</summary>
-          <ul className="bg-base-100 rounded-t-none p-2">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/labreport">Lab Report</Link></li>
-            <li><Link to="/assignment">Assignment</Link></li>
-            <li><Link to="/indexPage">Index Page</Link></li>
-          </ul>
-        </details>
-      </li>
-    </ul>
+
+<Link to="/" tabIndex={0} role="button" className="btn m-1">Home</Link>
+   
   </div>
 </div> 
         </>
