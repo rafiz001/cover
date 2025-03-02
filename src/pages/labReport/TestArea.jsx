@@ -5,6 +5,7 @@ import InputField from '../misc/InputField';
 import {  useSearchParams } from 'react-router';
 import { toast } from 'react-toastify';
 import Design2 from '../pdf/Design2';
+import Design3 from '../pdf/Design3';
 
 function TestArea(props) {
   const [pdfUrl, setPdfUrl] = useState(null);
@@ -14,19 +15,19 @@ function TestArea(props) {
   
 
   const [data, setData] = useState({
-    color:false,
+    color:true,
     report: "3",
     ccode: "CSE 334",
-    ctitle: "Microprocessor and Assembly Language Lab",
+    ctitle: "Operating System and System Programming Lab",//"Microprocessor and Assembly Language Lab"//""
     willIssue:false,
     issue: "13 February, 2025",
-    submit: "18 February, 2025",
+    submit: null,//"18 February, 2025"
     sname: "MD. ROBIUL HASAN MURSHED ROMIM",//Md. Rafiz Uddin
     sid: "222311079",
     year: "3rd",
     semester: "7th",
     section: "B",
-    batch: "null",
+    batch: "30th",
     tname1: "Mohammad Faisal Al-Naser",
     tdes1: "Lecturer",
     tname2: "Md. Adnan Sami",
@@ -35,7 +36,7 @@ function TestArea(props) {
     
   })
   const generatePdfBlob = async () => {
-    const blob = await pdf(<MyDocument data={data} assignment={props.assignment}/>).toBlob();
+    const blob = await pdf(<Design3 data={data} assignment={props.assignment}/>).toBlob();
     const url = URL.createObjectURL(blob);//MyDocument Design2
     setPdfUrl(url);
     setIsLoading(false)
