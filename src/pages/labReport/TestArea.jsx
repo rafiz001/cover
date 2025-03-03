@@ -32,6 +32,7 @@ function TestArea(props) {
     tdes1: "Lecturer",
     tname2: "Md. Adnan Sami",
     tdes2: "Lecturer",
+    tdept: "CSE",
     style: "classic",
     
   })

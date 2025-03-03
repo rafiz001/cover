@@ -110,21 +110,21 @@ const Design3 = ({ data, assignment }) => (
           </View>
         </View>
 
-        <View style={[styles.bold,{flexDirection:"row", justifyContent:"center", gap:"20px" }]}>
+        <View style={[styles.bold, { flexDirection: "row", justifyContent: "center", gap: "20px" }]}>
 
-        <Text style={{padding:"5px", border:"2px solid black"}}>Assignment No.: {data.report}</Text>
-        <Text style={{padding:"5px", border:"2px solid black"}}>Submission Date: {data.submit?data.submit:range(40).map(()=>" ")}</Text>
+          <Text style={{ padding: "5px", border: "2px solid black" }}>Assignment No.: {data.report}</Text>
+          <Text style={{ padding: "5px", border: "2px solid black" }}>Submission Date: {data.submit ? data.submit : range(40).map(() => " ")}</Text>
         </View>
 
 
 
-        <View style={[styles.bold, { paddingHorizontal: "10px", paddingVertical: "30px", marginVertical: "30px", border: "2px solid black", position: "relative" }]}>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ flex: 1 }}>Student Name</Text>
-            <Text style={{ flex: 1, borderLeft:"2px", paddingLeft:"10px" }}>: {data.sname}</Text>
+        <View style={[styles.bold, { marginVertical: "30px", border: "2px solid black", position: "relative" }]}>
+          <View style={{ flexDirection: "row", }}>
+            <Text style={{ flex: 1, marginTop: "60px", textAlign: "center", borderTop: "2px" }}>{data.tname1}{"\n"}{data.tdes1}{"\n"}Dept. of {data.tdept}{"\n"}Varendra University</Text>
+            <Text style={{ flex: 1, borderLeft: "2px", marginTop: "60px", textAlign: "center", borderTop: "2px" }}>{data.tname2}{"\n"}{data.tdes2}{"\n"}Dept. of {data.tdept}{"\n"}Varendra University</Text>
           </View>
 
-         
+
           <View style={{ position: "absolute", top: "-17px", left: "0px", width: "100%", flexDirection: "row", justifyContent: "center" }}>
             <Text style={{ paddingHorizontal: "10px", paddingVertical: "5px", backgroundColor: "grey", color: "white" }}>Prepaired For</Text>
           </View>
