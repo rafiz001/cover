@@ -5,6 +5,7 @@ import InputField from '../misc/InputField';
 import { useSearchParams } from 'react-router';
 import { toast } from 'react-toastify';
 import Design2 from '../pdf/Design2';
+import Design3 from '../pdf/Design3';
 
 function Index(props) {
   const [pdfUrl, setPdfUrl] = useState(null);
@@ -43,6 +44,9 @@ function Index(props) {
         break;
       case 'layout2':
         blob = await pdf(<Design2 data={data} assignment={props.assignment} />).toBlob();
+        break;
+      case 'layout3':
+        blob = await pdf(<Design3 data={data} assignment={props.assignment} />).toBlob();
         break;
 
       default:
@@ -126,6 +130,7 @@ function Index(props) {
         <select onChange={(e) => { setData(({ ...data, style: e.target.value })); }} defaultValue="Pick a Layout" className="select">
           <option selected={data.style == "classic"} value={"classic"}>Classic Layout</option>
           <option selected={data.style == "layout2"} value={"layout2"}>Layout 2</option>
+          <option selected={data.style == "layout3"} value={"layout3"}>Layout 3</option>
 
 
 

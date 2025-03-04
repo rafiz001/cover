@@ -12,7 +12,7 @@ Font.register({
 // Create styles
 const styles = StyleSheet.create({
   page: {
-    padding: '30px',
+    padding: '35px',
     fontFamily: 'Times-Roman'
 
   },
@@ -60,13 +60,13 @@ const Design3 = ({ data, assignment }) => (
     <Page style={styles.page} >
       <View style={styles.body}>
 
-        <Text style={[styles.bold, { color: "#C24C2E", fontSize: "33px", textAlign: "center" }]}>VARENDRA UNIVERSITY</Text>
+        <Text style={[styles.bold, { color: data.color?"#C24C2E":"black", fontSize: "33px", textAlign: "center" }]}>VARENDRA UNIVERSITY</Text>
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <Image style={styles.vu} src={data.color ? "/cover/static/VU.png" : "/cover/static/VU_mono.png"} />
         </View>
 
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <Text style={[{ color: "white", backgroundColor: "#C24C2E", padding: "5px", marginVertical: "10px" }, styles.bold]}>LAB REPORT</Text>
+          <Text style={[{ color: "white", backgroundColor: data.color ?"#C24C2E":"grey", padding: "5px", marginVertical: "10px" }, styles.bold]}>{assignment?"ASSIGNMENT":"LAB REPORT"}</Text>
         </View>
 
         <View style={{ border: "2px solid black", padding: "3px", }}>
@@ -110,23 +110,31 @@ const Design3 = ({ data, assignment }) => (
           </View>
         </View>
 
-        <View style={[styles.bold, { flexDirection: "row", justifyContent: "center", gap: "20px" }]}>
+        <View style={[styles.bold, { flexDirection: "row", justifyContent: "center", gap: "20px", marginVertical:"10px" }]}>
 
-          <Text style={{ padding: "5px", border: "2px solid black" }}>Assignment No.: {data.report}</Text>
+          <Text style={{ padding: "5px", border: "2px solid black" }}>{assignment?"Assignment":"Report"} No.: {data.report?data.report:range(10).map(() => " ")}</Text>
           <Text style={{ padding: "5px", border: "2px solid black" }}>Submission Date: {data.submit ? data.submit : range(40).map(() => " ")}</Text>
         </View>
 
 
 
-        <View style={[styles.bold, { marginVertical: "30px", border: "2px solid black", position: "relative" }]}>
+        <View style={[{ marginVertical: "30px", border: "2px solid black", position: "relative" }]}>
           <View style={{ flexDirection: "row", }}>
-            <Text style={{ flex: 1, marginTop: "60px", textAlign: "center", borderTop: "2px" }}>{data.tname1}{"\n"}{data.tdes1}{"\n"}Dept. of {data.tdept}{"\n"}Varendra University</Text>
-            <Text style={{ flex: 1, borderLeft: "2px", marginTop: "60px", textAlign: "center", borderTop: "2px" }}>{data.tname2}{"\n"}{data.tdes2}{"\n"}Dept. of {data.tdept}{"\n"}Varendra University</Text>
+            <View style={{ flex: 1,  }}>
+              <Text style={[styles.bold, { textAlign: "center", marginTop: "60px", borderTop: "2px" }]}>{data.tname1}</Text>
+              <Text style={{ textAlign: "center" }}>{data.tdes1}{"\n"}Dept. of {data.tdept}{"\n"}Varendra University</Text>
+            </View>
+            
+            {data.tname2 && <View style={{ flex: 1, borderLeft: "2px", }}>
+              <Text style={[styles.bold, { textAlign: "center", marginTop: "60px", borderTop: "2px" }]}>{data.tname2}</Text>
+              <Text style={{ textAlign: "center" }}>{data.tdes2}{"\n"}Dept. of {data.tdept}{"\n"}Varendra University</Text>
+            </View> }
+
           </View>
 
 
           <View style={{ position: "absolute", top: "-17px", left: "0px", width: "100%", flexDirection: "row", justifyContent: "center" }}>
-            <Text style={{ paddingHorizontal: "10px", paddingVertical: "5px", backgroundColor: "grey", color: "white" }}>Prepaired For</Text>
+            <Text style={[styles.bold,{ paddingHorizontal: "10px", paddingVertical: "5px", backgroundColor: "grey", color: "white" }]}>Prepaired For</Text>
           </View>
         </View>
 
