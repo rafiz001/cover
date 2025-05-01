@@ -5,6 +5,7 @@ import InputField from '../misc/InputField';
 import { useSearchParams } from 'react-router';
 import { toast } from 'react-toastify';
 import CheckBox from '../misc/CheckBox';
+import courses from '../misc/courses.json'
 function IndexPage(props) {
   const [pdfUrl, setPdfUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -55,8 +56,19 @@ function IndexPage(props) {
     if (gotData.ccode != undefined)
       setData({ ...data, ...gotData })
 
-  }, [])
+     // loading data from localStorage
+     let userInfo = localStorage.getItem("userInfo")
+     if(userInfo){
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+      setData({...data, name: userInfo.sname, id: userInfo.sid})     
+     }
 
+  }, [])
+  useEffect(() => {
+    //filling course title from course code
+    if(data.ccode)
+    courses[data.ccode.toUpperCase()] && setData({...data, ctitle: courses[data.ccode.toUpperCase()]}) 
+  },[data.ccode])
   return (
     <>
       <div className='flex flex-col items-center gap-2'>

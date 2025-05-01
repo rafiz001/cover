@@ -9,7 +9,7 @@ function InputField(props) {
         {props.label}
         <input type={(props.type!=undefined && props.type=="number")?"number":"text"} className=" " placeholder={props.ph} value={props.data[props.name]?props.data[props.name]:""} onChange={handleChange}/>
 
-      </label>
+        </label>
     );
 }
 

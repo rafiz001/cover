@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router';
 import { toast } from 'react-toastify';
 import Design2 from '../pdf/Design2';
 import Design3 from '../pdf/Design3';
-
+import courses from '../misc/courses.json'
 function Index(props) {
   const [pdfUrl, setPdfUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -62,6 +62,7 @@ function Index(props) {
   }
   function generate() {
     setIsLoading(true)
+    saveIdentity()
     generatePdfBlob()
   }
   function beforeWhat(str) {
@@ -76,6 +77,7 @@ function Index(props) {
     else toast.error("Cource code is mandatory to share.")
   }
   useEffect(() => {
+    // loading data from  URL
     let gotData = Object.fromEntries([...searchParams]);
     Object.keys(gotData).forEach((v) => { if (gotData[v] == "null") gotData = { ...gotData, [v]: null }; })
     if (gotData.color != undefined) gotData.color = (gotData.color === "true") ? true : false;
@@ -83,9 +85,37 @@ function Index(props) {
     console.log(gotData);
     if (gotData.ccode != undefined)
       setData({ ...data, ...gotData })
-
+    // loading data from localStorage
+    let userInfo = localStorage.getItem("userInfo")
+    if(userInfo){
+     setData({...data, ...JSON.parse(localStorage.getItem("userInfo"))})     
+    }
+    
   }, [])
 
+
+
+  useEffect(() => {
+    //filling course title from course code
+    if(data.ccode)
+    courses[data.ccode.toUpperCase()] && setData({...data, ctitle: courses[data.ccode.toUpperCase()]}) 
+  },[data.ccode])
+
+  const saveIdentity = ()=>{
+    if(data.sname){
+      const dataToBeSaved = {
+        sname: data.sname,
+        sid: data.sid,
+        year: data.year,
+        semester: data.semester,
+        section: data.section,
+        batch: data.batch
+        
+      }
+      localStorage.setItem("userInfo", JSON.stringify(dataToBeSaved));
+      //toast.info(`${data.sname}'s data saved at browser.`)
+    }
+  }
   return (
     <>
       <div className='flex flex-col items-center gap-2'>
@@ -115,7 +145,7 @@ function Index(props) {
         <InputField label={"Course Title:"} ph={"Microprocessor and Assembly Language Lab"} name='ctitle' data={data} setData={setData} />
         {data.willIssue && <InputField label={"Issue:"} ph={"17 February, 2025"} name='issue' data={data} setData={setData} />}
         <InputField label={"Submission:"} ph={"24 February, 2025"} name='submit' data={data} setData={setData} />
-        <InputField label={"Student Name:"} ph={"Md. Rafiz Uddin"} name='sname' data={data} setData={setData} />
+        <InputField label={"Student Name:"} ph={"Md. Abc Xyz"} name='sname' data={data} setData={setData} />
         <InputField label={"Student ID:"} ph={"222311079"} name='sid' data={data} setData={setData} />
         <InputField label={"Year:"} ph={"3rd"} name='year' data={data} setData={setData} />
         <InputField label={"Semester:"} ph={"7th"} name='semester' data={data} setData={setData} />
