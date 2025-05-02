@@ -31,15 +31,15 @@ function App() {
       <Route path="*" element={<>sorry</>} />
     </Routes>
 
-<a href="https://rafiz001.github.io/sheet-routine/">
+
     <div role="alert" className="alert alert-dark mt-2">
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="h-6 w-6 shrink-0 stroke-current">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
   </svg>
-  <span>
-  Use Sheet Routine to get teacher names, course code automatic.</span>
+  <span className='flex gap-1'>
+  Use <a className='flex gap-1 underline' href="https://rafiz001.github.io/sheet-routine/">Sheet Routine <img src='/cover/static/link-external-small-ltr-progressive.svg'/></a> to get teachers name, course code automatic.</span>
 </div>
-</a>
+
 
 
 
