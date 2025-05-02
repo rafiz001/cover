@@ -85,15 +85,17 @@ function Index(props) {
     console.log(gotData);
     if (gotData.ccode != undefined)
       setData({ ...data, ...gotData })
-    // loading data from localStorage
-    let userInfo = localStorage.getItem("userInfo")
-    if(userInfo){
-     setData({...data, ...JSON.parse(localStorage.getItem("userInfo"))})     
-    }
+    
     
   }, [])
 
-
+  useEffect(()=>{
+    // loading data from localStorage
+    let userInfo = localStorage.getItem("userInfo")
+    if(userInfo){
+    setData({...data, ...JSON.parse(localStorage.getItem("userInfo"))})     
+    }
+  },[])
 
   useEffect(() => {
     //filling course title from course code
