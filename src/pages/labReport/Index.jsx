@@ -83,19 +83,19 @@ function Index(props) {
     if (gotData.color != undefined) gotData.color = (gotData.color === "true") ? true : false;
     if (gotData.willIssue != undefined) gotData.willIssue = (gotData.willIssue === "true") ? true : false;
     console.log(gotData);
+    // loading data from localStorage
+    let userInfo = localStorage.getItem("userInfo")
+    if(userInfo){
+      gotData={...gotData, ...JSON.parse(localStorage.getItem("userInfo"))}   
+      }
+
+
     if (gotData.ccode != undefined)
       setData({ ...data, ...gotData })
     
     
   }, [])
 
-  useEffect(()=>{
-    // loading data from localStorage
-    let userInfo = localStorage.getItem("userInfo")
-    if(userInfo){
-    setData({...data, ...JSON.parse(localStorage.getItem("userInfo"))})     
-    }
-  },[])
 
   useEffect(() => {
     //filling course title from course code
