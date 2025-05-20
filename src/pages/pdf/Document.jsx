@@ -44,24 +44,22 @@ const MyDocument = ({ data, assignment }) => (
     <Page style={styles.page} >
       <View style={styles.body}>
 
-
         <View style={styles.header}>
 
 
           <Image style={styles.cse} src={data.color ? "/cover/static/CSE.png" : "/cover/static/CSE_mono.png"} />
 
-
-
           <View >
-            <View style={{ flexDirection: 'row', justifyContent: 'center' }}><Text style={{ fontSize: '40px' }}>Varendra University</Text></View>
-            <View style={{ flexDirection: 'row', justifyContent: 'center' }}><Text style={{ fontSize: '12px', }}>Department of Computer Science and Engineering</Text></View>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <Text style={{ fontSize: '40px' }}>Varendra University</Text>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <Text style={{ fontSize: '12px', }}>Department of Computer Science and Engineering</Text>
+            </View>
 
           </View>
 
           <Image style={styles.vu} src={data.color ? "/cover/static/VU.png" : "/cover/static/VU_mono.png"} />
-
-
-
 
         </View>
 
@@ -85,8 +83,6 @@ const MyDocument = ({ data, assignment }) => (
 
 
             </View>
-
-
 
             <View style={{ flex: 2 }}>
 
@@ -120,15 +116,7 @@ const MyDocument = ({ data, assignment }) => (
               <Text style={{ fontFamily: 'Times-Bold' }}>{data.submit}</Text>
             </View>
 
-
-
           </View>
-
-
-
-
-
-
 
         </>}
         <View style={{ margin: '10px', marginTop: '70px', border: '2px solid black' }}>

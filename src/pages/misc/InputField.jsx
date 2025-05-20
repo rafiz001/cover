@@ -7,7 +7,7 @@ function InputField(props) {
     return (
         <label className="input  focus-within:border-0">
         {props.label}
-        <input type={(props.type!=undefined && props.type=="number")?"number":"text"} className=" " placeholder={props.ph} value={props.data[props.name]?props.data[props.name]:""} onChange={handleChange}/>
+        <input list={(props.name=="ccode")?"course_codes":""} type={(props.type!=undefined && props.type=="number")?"number":"text"} className=" " placeholder={props.ph} value={props.data[props.name]?props.data[props.name]:""} onChange={handleChange}/>
 
         </label>
     );

@@ -44,31 +44,29 @@ function IndexPage(props) {
 
     document.getElementById('shareModal').showModal();
     const searchParams = new URLSearchParams(data).toString();
-    setShareLink("http://" + window.location.host + "/cover/" + beforeWhat(window.location.hash) + "?" + searchParams)
+    setShareLink("http://" + window.location.host + "/cover/"
+      + beforeWhat(window.location.hash) + "?" + searchParams)
 
   }
   useEffect(() => {
     let gotData = Object.fromEntries([...searchParams]);
-    // Object.keys(gotData).forEach((v) => { if (gotData[v] == "null") gotData = { ...gotData, [v]: null }; })
-    // if (gotData.color != undefined) gotData.color = (gotData.color === "true") ? true : false;
-    // if (gotData.willIssue != undefined) gotData.willIssue = (gotData.willIssue === "true") ? true : false;
-    // console.log(gotData);
+
     if (gotData.ccode != undefined)
       setData({ ...data, ...gotData })
 
-     // loading data from localStorage
-     let userInfo = localStorage.getItem("userInfo")
-     if(userInfo){
+    // loading data from localStorage
+    let userInfo = localStorage.getItem("userInfo")
+    if (userInfo) {
       const userInfo = JSON.parse(localStorage.getItem("userInfo"))
-      setData({...data, name: userInfo.sname, id: userInfo.sid})     
-     }
+      setData({ ...data, name: userInfo.sname, id: userInfo.sid })
+    }
 
   }, [])
   useEffect(() => {
     //filling course title from course code
-    if(data.ccode)
-    courses[data.ccode.toUpperCase()] && setData({...data, ctitle: courses[data.ccode.toUpperCase()]}) 
-  },[data.ccode])
+    if (data.ccode)
+      courses[data.ccode.toUpperCase()] && setData({ ...data, ctitle: courses[data.ccode.toUpperCase()] })
+  }, [data.ccode])
   return (
     <>
       <div className='flex flex-col items-center gap-2'>
@@ -132,13 +130,13 @@ function IndexPage(props) {
 
 
 
-<div role="alert" className="alert alert-dark mt-2">
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="h-6 w-6 shrink-0 stroke-current">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-  </svg>
-  <span>
-  If downloading pdf not working, Please use modern browser like Chrome, Firefox, Brave, MS Edge browser.</span>
-</div>
+      <div role="alert" className="alert alert-dark mt-2">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="h-6 w-6 shrink-0 stroke-current">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span>
+          If downloading pdf not working, Please use modern browser like Chrome, Firefox, Brave, MS Edge browser.</span>
+      </div>
     </>
   );
 }

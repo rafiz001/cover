@@ -12,7 +12,7 @@ function Index(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [shareLink, setShareLink] = useState(" ");
   const [searchParams] = useSearchParams();
-
+  const [historyCources, setHistoryCources] = useState({});
 
   const [data, setData] = useState({
     color: true,
@@ -36,6 +36,27 @@ function Index(props) {
     style: "classic",
 
   })
+  window.addEventListener('message', (event) => {
+    if (event.data.type === 'EXTENSION_READY') {
+      // Request data when extension is ready
+      window.postMessage({
+        type: 'REQUEST_COURSE_DATA'
+      }, '*');
+    }
+
+    if (event.data.type === 'FROM_EXTENSION_COURSE_DATA') {
+      let theObj = {};
+      let array = event.data.payload.map((v, k) => v.matchedCourse);
+      array.forEach((v, k) => {
+        theObj = { ...theObj, [v.code]: v.title }
+      })
+      console.log('Received course matches:', theObj);
+      setHistoryCources(theObj)
+
+    }
+  });
+
+
   const generatePdfBlob = async () => {
     let blob;
     switch (data.style) {
@@ -72,7 +93,8 @@ function Index(props) {
     if (data.ccode != null && data.ccode != "") {
       document.getElementById('shareModal').showModal();
       const searchParams = new URLSearchParams(data).toString();
-      setShareLink("http://" + window.location.host + "/cover/" + beforeWhat(window.location.hash) + "?" + searchParams)
+      setShareLink("http://" + window.location.host + "/cover/"
+        + beforeWhat(window.location.hash) + "?" + searchParams)
     }
     else toast.error("Cource code is mandatory to share.")
   }
@@ -83,28 +105,31 @@ function Index(props) {
     if (gotData.color != undefined) gotData.color = (gotData.color === "true") ? true : false;
     if (gotData.willIssue != undefined) gotData.willIssue = (gotData.willIssue === "true") ? true : false;
     console.log(gotData);
-    // loading data from localStorage
-    let userInfo = localStorage.getItem("userInfo")
-    if(userInfo){
-      gotData={...gotData, ...JSON.parse(localStorage.getItem("userInfo"))}   
-      }
+
 
 
     if (gotData.ccode != undefined)
       setData({ ...data, ...gotData })
-    
-    
+
+
   }, [])
 
+  useEffect(() => {
+    // loading data from localStorage
+    let userInfo = localStorage.getItem("userInfo")
+    if (userInfo) {
+      setData({ ...data, ...JSON.parse(localStorage.getItem("userInfo")) })
+    }
+  }, [])
 
   useEffect(() => {
     //filling course title from course code
-    if(data.ccode)
-    courses[data.ccode.toUpperCase()] && setData({...data, ctitle: courses[data.ccode.toUpperCase()]}) 
-  },[data.ccode])
+    if (data.ccode)
+      courses[data.ccode.toUpperCase()] && setData({ ...data, ctitle: courses[data.ccode.toUpperCase()] })
+  }, [data.ccode])
 
-  const saveIdentity = ()=>{
-    if(data.sname){
+  const saveIdentity = () => {
+    if (data.sname) {
       const dataToBeSaved = {
         sname: data.sname,
         sid: data.sid,
@@ -112,7 +137,7 @@ function Index(props) {
         semester: data.semester,
         section: data.section,
         batch: data.batch
-        
+
       }
       localStorage.setItem("userInfo", JSON.stringify(dataToBeSaved));
       //toast.info(`${data.sname}'s data saved at browser.`)
@@ -142,8 +167,13 @@ function Index(props) {
         </div>
 
 
-        <InputField label={props.assignment ? "Assignment no.:" : "Lab Report no.:"} ph={"1"} name='report' data={data} setData={setData} />
+        <InputField label={props.assignment ? "Assignment no.:" : "Lab Report no.:"} ph={"1"}
+         name='report' data={data} setData={setData} />
         <InputField label={"Course Code:"} ph={"CSE 334"} name='ccode' data={data} setData={setData} />
+        <datalist id='course_codes'>
+          {Object.keys({ ...historyCources, ...courses }).map((v, k) => 
+          <option value={v} key={k}>{courses[v]}</option>)}
+        </datalist>
         <InputField label={"Course Title:"} ph={"Microprocessor and Assembly Language Lab"} name='ctitle' data={data} setData={setData} />
         {data.willIssue && <InputField label={"Issue:"} ph={"17 February, 2025"} name='issue' data={data} setData={setData} />}
         <InputField label={"Submission:"} ph={"24 February, 2025"} name='submit' data={data} setData={setData} />
@@ -197,9 +227,11 @@ function Index(props) {
       <dialog id="shareModal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Share URL</h3>
-          <p className="py-4"><input type="text" placeholder="Loading..." readOnly={true} className="input w-full" value={shareLink} /></p>
+          <p className="py-4"><input type="text" placeholder="Loading..." 
+          readOnly={true} className="input w-full" value={shareLink} /></p>
           <div className="modal-action">
-            <button onClick={() => navigator.clipboard.writeText(shareLink).then(() => toast('Copied to clipboard!'))} className="btn">Clipboard</button>
+            <button onClick={() => navigator.clipboard.writeText(shareLink).then(() =>
+               toast('Copied to clipboard!'))} className="btn">Clipboard</button>
             <form method="dialog">
               <button className="btn">Close</button>
             </form>
