@@ -101,25 +101,32 @@ function Index(props) {
   useEffect(() => {
     // loading data from  URL
     let gotData = Object.fromEntries([...searchParams]);
-    Object.keys(gotData).forEach((v) => { if (gotData[v] == "null") gotData = { ...gotData, [v]: null }; })
-    if (gotData.color != undefined) gotData.color = (gotData.color === "true") ? true : false;
-    if (gotData.willIssue != undefined) gotData.willIssue = (gotData.willIssue === "true") ? true : false;
-    console.log(gotData);
+
+      Object.keys(gotData).forEach((v) => { if (gotData[v] == "null") gotData = { ...gotData, [v]: null }; })
+      if (gotData.color != undefined) gotData.color = (gotData.color === "true") ? true : false;
+      if (gotData.willIssue != undefined) gotData.willIssue = (gotData.willIssue === "true") ? true : false;
+      console.log(gotData);
+      if (gotData.ccode != undefined)
+        setData({ ...data, ...gotData })
+
+   
+
+      // loading data from localStorage
+      let userInfo = localStorage.getItem("userInfo")
+      if (userInfo) {
+        setData({ ...data, ...gotData, ...JSON.parse(localStorage.getItem("userInfo")) })
+      }
+      
+     
+ 
 
 
-
-    if (gotData.ccode != undefined)
-      setData({ ...data, ...gotData })
 
 
   }, [])
 
   useEffect(() => {
-    // loading data from localStorage
-    let userInfo = localStorage.getItem("userInfo")
-    if (userInfo) {
-      setData({ ...data, ...JSON.parse(localStorage.getItem("userInfo")) })
-    }
+
   }, [])
 
   useEffect(() => {
@@ -168,11 +175,11 @@ function Index(props) {
 
 
         <InputField label={props.assignment ? "Assignment no.:" : "Lab Report no.:"} ph={"1"}
-         name='report' data={data} setData={setData} />
+          name='report' data={data} setData={setData} />
         <InputField label={"Course Code:"} ph={"CSE 334"} name='ccode' data={data} setData={setData} />
         <datalist id='course_codes'>
-          {Object.keys({ ...historyCources, ...courses }).map((v, k) => 
-          <option value={v} key={k}>{courses[v]}</option>)}
+          {Object.keys({ ...historyCources, ...courses }).map((v, k) =>
+            <option value={v} key={k}>{courses[v]}</option>)}
         </datalist>
         <InputField label={"Course Title:"} ph={"Microprocessor and Assembly Language Lab"} name='ctitle' data={data} setData={setData} />
         {data.willIssue && <InputField label={"Issue:"} ph={"17 February, 2025"} name='issue' data={data} setData={setData} />}
@@ -227,11 +234,11 @@ function Index(props) {
       <dialog id="shareModal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Share URL</h3>
-          <p className="py-4"><input type="text" placeholder="Loading..." 
-          readOnly={true} className="input w-full" value={shareLink} /></p>
+          <p className="py-4"><input type="text" placeholder="Loading..."
+            readOnly={true} className="input w-full" value={shareLink} /></p>
           <div className="modal-action">
             <button onClick={() => navigator.clipboard.writeText(shareLink).then(() =>
-               toast('Copied to clipboard!'))} className="btn">Clipboard</button>
+              toast('Copied to clipboard!'))} className="btn">Clipboard</button>
             <form method="dialog">
               <button className="btn">Close</button>
             </form>
