@@ -40,16 +40,19 @@ const styles = StyleSheet.create({
 // Create Document Component
 const Design2 = ({ data, assignment }) => {
 
-  function newLineAfterThreeWord(params) {
-    let arrays = params.split(" ");
-    let out = "";
-    arrays.forEach((e, k) => {
-      out += e + " ";
-      if (k == 2) out += "\n";
-    });
+function newLineAfterNWord(params, n) {
+  let arrays = params.split(" ");
+  let out = "";
+  let i=0;
+  arrays.forEach((e, k) => {
+    i+=1;
+    out += e + " ";
+    if (i == (n - 1)) {out += "\n";i=0;}
+    
+  });
 
-    return out;
-  }
+  return out;
+}
 
   return (
     <Document>
@@ -86,7 +89,8 @@ const Design2 = ({ data, assignment }) => {
             </View>
             <Text style={{ fontFamily: 'Poppins-Bold' }}>{assignment ? "ASSIGNMENT" : "LAB REPORT"}: #{data.report}</Text>
             <Text style={{ fontFamily: 'Poppins-Bold', marginTop: '10px', textAlign: 'left',lineHeight: 1,  }}>
-              {data.ctitle && newLineAfterThreeWord(data.ctitle.toUpperCase())}</Text>
+              {data.ctitle && newLineAfterNWord(data.ctitle.toUpperCase(), Number.parseInt(data.nl))}
+              </Text>
             <Text style={{ fontFamily: 'Poppins-Bold', fontSize: "40px" }}>{data.ccode && data.ccode.toUpperCase()}</Text>
             {data.willIssue && <><Text style={{ fontFamily: 'Poppins-Bold', fontSize: "20px" }}>Issue Date:</Text>
             <Text style={{ fontFamily: 'Poppins', fontSize: "20px" }}>{data.issue?data.issue:" "}</Text></>}

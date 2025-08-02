@@ -37,7 +37,19 @@ const styles = StyleSheet.create({
     width: '50px',
   }
 });
+function newLineAfterNWord(params, n) {
+  let arrays = params.split(" ");
+  let out = "";
+  let i=0;
+  arrays.forEach((e, k) => {
+    i+=1;
+    out += e + " ";
+    if (i == (n - 1)) {out += "\n";i=0;}
+    
+  });
 
+  return out;
+}
 // Create Document Component
 const MyDocument = ({ data, assignment }) => (
   <Document>
@@ -68,11 +80,11 @@ const MyDocument = ({ data, assignment }) => (
         </View>
 
         : <>
-          <View style={{ flexDirection: 'column', gap: "7px", marginHorizontal: "5px", marginBottom: data.hasTitle?'0px':'50px', marginTop: '50px', padding: "2px", border: "2px solid black", borderRadius: "5px" }}>
+          <View style={{ flexDirection: 'column', gap: "7px", marginHorizontal: "5px", marginBottom: data.hasTitle ? '0px' : '50px', marginTop: '50px', padding: "2px", border: "2px solid black", borderRadius: "5px" }}>
 
             <View style={{ display: "flex", flexDirection: "row", paddingLeft: '15px' }}>
               <Text style={{}}>Course Title: </Text>
-              <Text style={{ fontFamily: 'Times-Bold' }}>{data.ctitle}</Text>
+              <Text style={{ fontFamily: 'Times-Bold' }}>{data.ctitle && newLineAfterNWord(data.ctitle, Number.parseInt(data.nl))}</Text>
             </View>
 
             <View style={{ display: "flex", flexDirection: "row", paddingLeft: '15px' }}>
@@ -83,7 +95,7 @@ const MyDocument = ({ data, assignment }) => (
               <Text style={{}}>Submission Date: </Text>
               <Text style={{ fontFamily: 'Times-Bold' }}>{data.submit}</Text>
             </View>
-           {data.willIssue && <View style={{ display: "flex", flexDirection: "row", paddingLeft: '15px' }}>
+            {data.willIssue && <View style={{ display: "flex", flexDirection: "row", paddingLeft: '15px' }}>
               <Text style={{}}>Issue Date: </Text>
               <Text style={{ fontFamily: 'Times-Bold' }}>{data.issue}</Text>
             </View>}
@@ -94,9 +106,9 @@ const MyDocument = ({ data, assignment }) => (
 
 
         {data.hasTitle && <View style={{ flexDirection: 'column', marginHorizontal: "5px", marginVertical: '5px', padding: "10px", border: "2px solid black", borderRadius: "5px" }}>
-          <View style={{ display: "flex", flexDirection: "col" , paddingLeft: '15px' }}>
-            <Text style={{ textAlign:"center"}}>{assignment ? "Assignment" : "Report"} on: </Text>
-            <Text style={{ textAlign:"center", fontFamily: 'Times-Bold' }}>{data.title}</Text>
+          <View style={{ display: "flex", flexDirection: "col", paddingLeft: '15px' }}>
+            <Text style={{ textAlign: "center" }}>{assignment ? "Assignment" : "Report"} on: </Text>
+            <Text style={{ textAlign: "center", fontFamily: 'Times-Bold' }}>{data.title}</Text>
           </View>
         </View>}
 

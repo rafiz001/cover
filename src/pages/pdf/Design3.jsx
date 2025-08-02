@@ -53,6 +53,19 @@ const styles = StyleSheet.create({
   },
 
 });
+function newLineAfterNWord(params, n) {
+  let arrays = params.split(" ");
+  let out = "";
+  let i=0;
+  arrays.forEach((e, k) => {
+    i+=1;
+    out += e + " ";
+    if (i == (n - 1)) {out += "\n";i=0;}
+    
+  });
+
+  return out;
+}
 let range = n => [...Array(n).keys()];
 // Create Document Component
 const Design3 = ({ data, assignment }) => (
@@ -72,11 +85,11 @@ const Design3 = ({ data, assignment }) => (
         <View style={{ border: "2px solid black", padding: "3px", }}>
           {data.hasTitle && <View style={{ flexDirection: "row" }}>
             <Text style={[styles.bold]}>{assignment ? "Assignment" : "Report"} on: </Text>
-            <Text style={{}}>{data.title}</Text>
+            <Text style={{}}>{data.title && newLineAfterNWord(data.title, Number.parseInt(data.nl))}</Text>
           </View>}
           <View style={{ flexDirection: "row" }}>
             <Text style={[styles.bold]}>Course Title: </Text>
-            <Text style={{}}>{data.ctitle}</Text>
+            <Text style={{}}>{data.ctitle && newLineAfterNWord(data.ctitle, Number.parseInt(data.nl))}</Text>
           </View>
           <View style={{ flexDirection: "row" }}>
             <Text style={styles.bold}>Course Code: </Text>

@@ -25,6 +25,7 @@ function Index(props) {
     report: null,
     ccode: null,
     ctitle: null,
+    nl:"3",
     willIssue: false,
     hasTitle: false,
     title: "",
@@ -201,6 +202,7 @@ function Index(props) {
             <option value={v} key={k}>{courses[v]}</option>)}
         </datalist>
         <InputField label={"Course Title:"} ph={"Microprocessor and Assembly Language Lab"} name='ctitle' data={data} setData={setData} />
+        <InputField label={"New Line After N Words:"} ph={"3"} name='nl' data={data} setData={setData} />
         <InputField label={"Issue:"} hidden={data.willIssue} ph={"17 February, 2025"} name='issue' data={data} setData={setData} />
         <InputField label={"Submission:"} ph={"24 February, 2025"} name='submit' data={data} setData={setData} />
         <InputField label={"Student Name:"} ph={"Md. Abc Xyz"} name='sname' data={data} setData={setData} />
