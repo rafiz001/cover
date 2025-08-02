@@ -44,7 +44,7 @@ function newLineAfterNWord(params, n) {
   arrays.forEach((e, k) => {
     i+=1;
     out += e + " ";
-    if (i == (n - 1)) {out += "\n";i=0;}
+    if (i == n ) {out += "\n";i=0;}
     
   });
 
