@@ -21,8 +21,9 @@ function IndexPage(props) {
     ctitle: "",
     page: "1",
     issue: "1",
-    submit: "1",
-    remark: "1",
+    submit: "0",
+    signature: "1",
+    remark: "0",
     row: "7"
 
   })
@@ -54,11 +55,13 @@ function IndexPage(props) {
     if (gotData.ccode != undefined)
       setData({ ...data, ...gotData })
 
+    
+
     // loading data from localStorage
     let userInfo = localStorage.getItem("userInfo")
     if (userInfo) {
       const userInfo = JSON.parse(localStorage.getItem("userInfo"))
-      setData({ ...data, name: userInfo.sname, id: userInfo.sid })
+      setData({ ...data, ...gotData, name: userInfo.sname, id: userInfo.sid })
     }
 
   }, [])
@@ -87,6 +90,7 @@ function IndexPage(props) {
         <CheckBox setData={setData} data={data} name={"issue"} label={"Issue Date: "} />
         <CheckBox setData={setData} data={data} name={"submit"} label={"Submission Date: "} />
         <CheckBox setData={setData} data={data} name={"remark"} label={"Remark: "} />
+        <CheckBox setData={setData} data={data} name={"signature"} label={"Signature: "} />
 
         <div className='flex justify-between gap-2'>
 
@@ -98,9 +102,9 @@ function IndexPage(props) {
         </div>
       </div>
 
-      {/* 
+       
 
-    <button onClick={()=>console.log(data)}>Generate PDF</button>
+    {/* <button className="btn btn-outline btn-success" onClick={()=>generate()}>Generate Live PDF</button>
     <a className='underline' href={pdfUrl ? pdfUrl : ''} download="page.pdf">
       {pdfUrl ? 'Download' : 'loading...'}
     </a>
@@ -113,7 +117,7 @@ function IndexPage(props) {
         title="PDF Preview"
         style={{ border: "1px solid black", marginTop: "10px" }}
       />
-    )} */}
+    )}  */}
 
       <dialog id="shareModal" className="modal">
         <div className="modal-box">

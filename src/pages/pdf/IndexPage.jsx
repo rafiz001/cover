@@ -70,12 +70,13 @@ const IndexPage = ({ data }) => {
     return out;
   }
   //debug={true}
-  // let header = ["S\nl.", "Experiment Name", "Page", "Issue Date", "Submission Date", "Remark"]
+  // let header = ["S\nl.", "Experiment Name", "Page", "Issue Date", "Submission Date", "Remark", "Signature"]
   let header = ["S\nl.", "Experiment Name"]
   if(data.page=="1")header.push("Page");
   if(data.issue=="1")header.push("Issue Date");
   if(data.submit=="1")header.push("Submission Date");
   if(data.remark=="1")header.push("Remark");
+  if(data.signature=="1")header.push("Signature");
 
 
   const col = header.length, row = parseInt(data.row);

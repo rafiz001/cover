@@ -37,7 +37,7 @@ function App() {
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
   </svg>
   <span className=''>
-  Use <a className=" underline hover:decoration-dashed after:content-[url('/cover/static/link-external-small-ltr-progressive.svg')] after:ml-0.5" href="https://rafiz001.github.io/sheet-routine/">Sheet Routine</a> to get teachers name, course code automatic.</span>
+  Use <a className=" underline hover:decoration-dashed after:content-[url('/cover/static/link-external-small-ltr-progressive.svg')] after:ml-0.5" href="https://rafiz001.github.io/sheet-routine-flutter/">Sheet Routine</a> to get teachers name, course code automatic.</span>
 </div>
 
 

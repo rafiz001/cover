@@ -67,40 +67,8 @@ const MyDocument = ({ data, assignment }) => (
           <Text style={{ border: '2px solid black', borderRadius: '25px', padding: '10px' }}>{assignment ? "Assignment" : "Lab Report"}: #{data.report}</Text>
         </View>
 
-        {data.willIssue ? <>
-          <View style={{ flexDirection: 'row', justifyContent: 'center', marginHorizontal: "5px", marginVertical: '50px', padding: "2px", border: "2px solid black", borderRadius: "5px" }}>
-
-            <View style={{ flex: 3 }}>
-              <View style={{ paddingLeft: '15px' }}>
-                <Text style={{ marginTop: "10px" }}>Course Title: </Text>
-                <Text style={{ fontFamily: 'Times-Bold' }}>{data.ctitle}</Text>
-              </View>
-
-              <View style={{ paddingLeft: '15px' }}>
-                <Text >Course Code: </Text>
-                <Text style={{ fontFamily: 'Times-Bold' }}>{data.ccode}</Text>
-              </View>
-
-
-            </View>
-
-            <View style={{ flex: 2 }}>
-
-              <View style={{}}>
-                <Text>Issue Date: </Text>
-                <Text style={{ fontFamily: 'Times-Bold' }}>{data.issue}</Text>
-              </View>
-              <View style={{ marginTop: "10px" }}>
-                <Text>Submission Date: </Text>
-                <Text style={{ fontFamily: 'Times-Bold' }}>{data.submit}</Text>
-              </View>
-
-            </View>
-
-
-          </View>
-        </> : <>
-          <View style={{ flexDirection: 'column', gap: "7px", marginHorizontal: "5px", marginVertical: '50px', padding: "2px", border: "2px solid black", borderRadius: "5px" }}>
+        : <>
+          <View style={{ flexDirection: 'column', gap: "7px", marginHorizontal: "5px", marginBottom: data.hasTitle?'0px':'50px', marginTop: '50px', padding: "2px", border: "2px solid black", borderRadius: "5px" }}>
 
             <View style={{ display: "flex", flexDirection: "row", paddingLeft: '15px' }}>
               <Text style={{}}>Course Title: </Text>
@@ -115,11 +83,26 @@ const MyDocument = ({ data, assignment }) => (
               <Text style={{}}>Submission Date: </Text>
               <Text style={{ fontFamily: 'Times-Bold' }}>{data.submit}</Text>
             </View>
+           {data.willIssue && <View style={{ display: "flex", flexDirection: "row", paddingLeft: '15px' }}>
+              <Text style={{}}>Issue Date: </Text>
+              <Text style={{ fontFamily: 'Times-Bold' }}>{data.issue}</Text>
+            </View>}
 
           </View>
 
-        </>}
-        <View style={{ margin: '10px', marginTop: '70px', border: '2px solid black' }}>
+        </>
+
+
+        {data.hasTitle && <View style={{ flexDirection: 'column', marginHorizontal: "5px", marginVertical: '5px', padding: "10px", border: "2px solid black", borderRadius: "5px" }}>
+          <View style={{ display: "flex", flexDirection: "col" , paddingLeft: '15px' }}>
+            <Text style={{ textAlign:"center"}}>{assignment ? "Assignment" : "Report"} on: </Text>
+            <Text style={{ textAlign:"center", fontFamily: 'Times-Bold' }}>{data.title}</Text>
+          </View>
+        </View>}
+
+
+
+        <View style={{ margin: '10px', marginTop: '7px', border: '2px solid black' }}>
           <View style={{ flexDirection: 'row', }}>
             <View style={{ flex: 1, borderRight: '2px' }}>
               <Text style={{ textAlign: 'center', padding: '5px' }}>Prepared by:</Text>

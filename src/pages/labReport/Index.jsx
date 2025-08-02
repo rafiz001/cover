@@ -13,15 +13,23 @@ function Index(props) {
   const [shareLink, setShareLink] = useState(" ");
   const [searchParams] = useSearchParams();
   const [historyCources, setHistoryCources] = useState({});
-
+  const months = [
+    'January', 'February', 'March', 'April',
+    'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December'
+  ];
+  const date = new Date;
+  const currentDate = `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}`;
   const [data, setData] = useState({
     color: true,
     report: null,
     ccode: null,
     ctitle: null,
-    willIssue: true,
-    issue: null,
-    submit: null,
+    willIssue: false,
+    hasTitle: false,
+    title: "",
+    issue: currentDate,
+    submit: currentDate,
     sname: null,
     sid: null,
     year: null,
@@ -102,23 +110,24 @@ function Index(props) {
     // loading data from  URL
     let gotData = Object.fromEntries([...searchParams]);
 
-      Object.keys(gotData).forEach((v) => { if (gotData[v] == "null") gotData = { ...gotData, [v]: null }; })
-      if (gotData.color != undefined) gotData.color = (gotData.color === "true") ? true : false;
-      if (gotData.willIssue != undefined) gotData.willIssue = (gotData.willIssue === "true") ? true : false;
-      console.log(gotData);
-      if (gotData.ccode != undefined)
-        setData({ ...data, ...gotData })
+    Object.keys(gotData).forEach((v) => { if (gotData[v] == "null") gotData = { ...gotData, [v]: null }; })
+    if (gotData.color != undefined) gotData.color = (gotData.color === "true") ? true : false;
+    if (gotData.willIssue != undefined) gotData.willIssue = (gotData.willIssue === "true") ? true : false;
+    if (gotData.hasTitle != undefined) gotData.hasTitle = (gotData.hasTitle === "true") ? true : false;
+    console.log(gotData);
+    if (gotData.ccode != undefined)
+      setData({ ...data, ...gotData })
 
-   
 
-      // loading data from localStorage
-      let userInfo = localStorage.getItem("userInfo")
-      if (userInfo) {
-        setData({ ...data, ...gotData, ...JSON.parse(localStorage.getItem("userInfo")) })
-      }
-      
-     
- 
+
+    // loading data from localStorage
+    let userInfo = localStorage.getItem("userInfo")
+    if (userInfo) {
+      setData({ ...data, ...gotData, ...JSON.parse(localStorage.getItem("userInfo")) })
+    }
+
+
+
 
 
 
@@ -172,17 +181,27 @@ function Index(props) {
             <svg aria-label="enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="4" fill="none" stroke="currentColor"><path d="M20 6 9 17l-5-5"></path></g></svg>
           </label>
         </div>
+        <div>
+          <label htmlFor='willIssue'>Has Title: </label>
+          <label className="toggle text-base-content">
+            <input id='willIssue' checked={data.hasTitle} type="checkbox" onChange={() => { setData(({ ...data, hasTitle: !(data.hasTitle) })); }} />
+
+            <svg aria-label="disabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+            <svg aria-label="enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="4" fill="none" stroke="currentColor"><path d="M20 6 9 17l-5-5"></path></g></svg>
+          </label>
+        </div>
 
 
         <InputField label={props.assignment ? "Assignment no.:" : "Lab Report no.:"} ph={"1"}
           name='report' data={data} setData={setData} />
+        <InputField label={"Title:"} hidden={data.hasTitle} ph={"Introduction to Arduino"} name='title' data={data} setData={setData} />
         <InputField label={"Course Code:"} ph={"CSE 334"} name='ccode' data={data} setData={setData} />
         <datalist id='course_codes'>
           {Object.keys({ ...historyCources, ...courses }).map((v, k) =>
             <option value={v} key={k}>{courses[v]}</option>)}
         </datalist>
         <InputField label={"Course Title:"} ph={"Microprocessor and Assembly Language Lab"} name='ctitle' data={data} setData={setData} />
-        {data.willIssue && <InputField label={"Issue:"} ph={"17 February, 2025"} name='issue' data={data} setData={setData} />}
+        <InputField label={"Issue:"} hidden={data.willIssue} ph={"17 February, 2025"} name='issue' data={data} setData={setData} />
         <InputField label={"Submission:"} ph={"24 February, 2025"} name='submit' data={data} setData={setData} />
         <InputField label={"Student Name:"} ph={"Md. Abc Xyz"} name='sname' data={data} setData={setData} />
         <InputField label={"Student ID:"} ph={"222311079"} name='sid' data={data} setData={setData} />
@@ -214,9 +233,9 @@ function Index(props) {
         </div>
       </div>
 
-      {/* 
 
-    <button onClick={()=>console.log(data)}>Generate PDF</button>
+
+    {/* <button onClick={() => generate()}>Generate PDF</button>
     <a className='underline' href={pdfUrl ? pdfUrl : ''} download="page.pdf">
       {pdfUrl ? 'Download' : 'loading...'}
     </a>
